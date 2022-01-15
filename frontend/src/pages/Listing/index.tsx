@@ -1,4 +1,3 @@
-
 import MovieCard from 'components/MovieCard';
 import Pagination from 'Pagination';
 import './styles.css';
