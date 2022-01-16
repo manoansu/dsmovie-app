@@ -23,13 +23,11 @@ const Listing = () =>{
 		empty: true,
 	});
 
-    //FORMA ERRADA
     useEffect(() =>{
         axios.get(`${BASE_URL}/movies?size=12&page=${pageNumeber}&sort=id`)
         .then(response =>{
             const data = response.data as MoviePage;
             setPage(data);
-            //console.log(data);
         });
     }, [pageNumeber]);
 	
@@ -38,7 +36,6 @@ const Listing = () =>{
     }
     return(
         <>
-        <p>{pageNumeber}</p>
         <Pagination page={page} onChange={handlePageChange}/>
         <div className="container">
             <div className="row">
