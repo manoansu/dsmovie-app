@@ -1,7 +1,19 @@
 export type Movie = {
     id: number;
-    image: string;
     title: string;
-    count: number;
     score: number;
+    count: number;
+    image: string;
+}
+
+export type MoviePage = {
+    content: Movie[];
+    last: boolean;
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
 }
