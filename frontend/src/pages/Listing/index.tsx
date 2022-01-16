@@ -1,4 +1,4 @@
-import MovieCard from 'components/MovieCard';
+import MovieCard from 'Components/MovieCard';
 import Pagination from 'Pagination';
 import './styles.css';
 
