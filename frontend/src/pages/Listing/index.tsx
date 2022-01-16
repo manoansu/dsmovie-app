@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MovieCard from 'Components/MovieCard';
-import { Movie, MoviePage } from 'pages/types/movie';
+import { MoviePage } from 'pages/types/movie';
 import Pagination from 'Pagination';
 import { useEffect, useState } from 'react';
 import { BASE_URL } from 'utils/request';
@@ -11,15 +11,27 @@ const Listing = () =>{
     // Mantem o estado do componente para variavel pageNumber, de acordo com as alterações
     const [pageNumeber, setPageNumber] = useState(0);
 
+    const [page, setPage ] = useState<MoviePage>({
+		content:[],
+		last: true,
+		totalPages: 0,
+		totalElements: 0,
+		size: 12,
+		number: 0,
+		first: true,
+		numberOfElements: 0,
+		empty: true,
+	});
+
     //FORMA ERRADA
     useEffect(() =>{
-        axios.get(`${BASE_URL}/movies?size=12&page=0`)
+        axios.get(`${BASE_URL}/movies?size=12&page=${pageNumeber}&sort=id`)
         .then(response =>{
             const data = response.data as MoviePage;
-            setPageNumber(data.number);
-            console.log(data);
+            setPage(data);
+            //console.log(data);
         });
-    }, []);
+    }, [pageNumeber]);
 	
 
     return(
@@ -28,30 +40,12 @@ const Listing = () =>{
         <Pagination />
         <div className="container">
             <div className="row">
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
-                <div className="col-sm-6 col-lg-4 col-xl-3 mb-3">
-                    <MovieCard />
-                </div>                
+                {page.content.map(obj => (
+                    <div key={obj.id} className="col-sm-6 col-lg-4 col-xl-3 mb-3">
+                    <MovieCard movie={obj}/>
+                </div> 
+                ))}
+                                          
             </div>
         </div>
         </>
